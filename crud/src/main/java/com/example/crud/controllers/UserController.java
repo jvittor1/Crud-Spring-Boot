@@ -19,7 +19,7 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @PostMapping()
+    @PostMapping("/create")
     public ResponseEntity<User> createUser(@RequestBody @Valid UserDTO userDto){
         var user = userService.createUser(userDto);
         return ResponseEntity.created(URI.create(("/users/" + user.getId()))).build();
@@ -39,14 +39,14 @@ public class UserController {
     }
 
 
-    @PutMapping("/{id}")
+    @PutMapping("/update/{id}")
     public ResponseEntity<User> updateUser(@PathVariable String id, @RequestBody @Valid UserDTO userDto) throws Exception{
         var user = userService.updateUser(id, userDto);
         return ResponseEntity.ok().build();
     }
 
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<Void> deleteUser(@PathVariable String id) throws Exception {
         userService.deleteUser(id);
         return ResponseEntity.noContent().build();
